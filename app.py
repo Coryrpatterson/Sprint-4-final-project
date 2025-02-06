@@ -28,3 +28,6 @@ fig2.update_layout(
     xaxis_tickangle=-45,  
 )
 st.plotly_chart(fig2)
+
+st.checkbox('Show Data', value=False)
+
