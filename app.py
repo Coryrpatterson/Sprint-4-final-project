@@ -44,12 +44,12 @@ st.plotly_chart(fig2)
 
 st.write('As shown below it isnt always the latest and greatest car that sales first! Make sure that you know your market before buying or selling  a car from a customer')
 
+model_years = df_filtered['model_year']
 xmin, xmax = model_years.min(), model_years.max()
 x = np.linspace(xmin, xmax, 100)
 mean = model_years.mean()
 std = model_years.std()
 normal_dist = norm.pdf(x, mean, std)  
-model_years = df_filtered['model_year']
 fig = px.histogram(
     model_years, 
     nbins=30,  
