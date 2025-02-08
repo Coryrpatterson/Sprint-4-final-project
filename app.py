@@ -60,7 +60,7 @@ fig = px.histogram(
 )
 
 fig.add_trace(
-    px.Scatter(
+    px.scatter(
         x=x, 
         y=normal_dist, 
         mode='lines', 
