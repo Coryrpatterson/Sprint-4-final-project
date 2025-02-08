@@ -67,7 +67,7 @@ fig.add_trace(
         name='Normal Dist.',  
         line=dict(color='red', dash='dash')  
     )
-)
+
 fig.update_layout(
     xaxis_title="Model Year",
     yaxis_title="Density",
