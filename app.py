@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
 from scipy.stats import norm
+import plotly.graph_objects as go
 
 
 st.title('Buying and Selling Strategies for Cars')
@@ -44,38 +45,61 @@ st.plotly_chart(fig2)
 
 st.write('As shown below it isnt always the latest and greatest car that sales first! Make sure that you know your market before buying or selling  a car from a customer')
 
-fig3=plt.figure(figsize=(10, 6))
-sns.histplot(df['model_year'].dropna(), kde=True, bins=30, stat="density", color='steelblue')
-xmin, xmax = plt.xlim()
+model_year_data = df['model_year'].dropna()
+xmin, xmax = model_year_data.min(), model_year_data.max()
 x = np.linspace(xmin, xmax, 100)
-mean = df['model_year'].mean()
-std = df['model_year'].std()
-"""plt.plot(x, norm.pdf(x, mean, std), color='red', linestyle='dashed', label="Normal Dist.")
-plt.title("Distribution of Vehicle Year and Its Effect on Sales", fontsize=14)
-plt.xlabel("Model Year")
-plt.ylabel("Total Vehicle Sales")
-plt.legend()
-st.pyplot(fig3)""" 
-data = [1, 1, 1, 2, 2, 3, 4, 4, 5, 5, 5]
-# Create a histogram
-fig = px.histogram(data, x=data, title='Histogram Example')
-fig.show()
+mean = model_year_data.mean()
+std = model_year_data.std()
+kde_values = norm.pdf(x, mean, std)
+fig = go.Figure()
+fig.add_trace(go.Histogram(
+    x=model_year_data,
+    nbinsx=30,
+    histnorm='density',  
+    name='Histogram of Model Year',
+    marker_color='steelblue',
+    opacity=0.7
+))
+fig.add_trace(go.Scatter(
+    x=x, y=kde_values,
+    mode='lines',
+    name="Normal Dist.",
+    line=dict(color='red', dash='dash')
+))
+fig.update_layout(
+    title="Distribution of Vehicle Year and Its Effect on Sales",
+    xaxis_title="Model Year",
+    yaxis_title="Total Vehicle Sales (Density)",
+    showlegend=True,
+    template="plotly_white"
+)
+st.plotly_chart(fig)
 
-st.write('Here we see a scatter plot of what happens with the prices of vehicles as we get higher odometer readings. There are outliers here however, the majority of the prices steadily have a negative slope to them')
+st.write('Here we see a scatter plot of what happens with the prices of vehicles as we get higher odometer readings. There are outliers here however, the majority of the prices steadily have a negative slope to them. Feel free to click on any of the types of vehicles to remove them from the list and gain greater insight into what a particular vehicle will sell for!')
 
-fig4=plt.figure(figsize=(10, 6))
-sns.scatterplot(x=df['odometer'], y=df['price'], alpha=0.3, s=10, color="darkblue")
-sns.regplot(x=df['odometer'], y=df['price'], scatter=False, color='red', line_kws={"linewidth": 2})
-plt.xlabel('Odometer Reading (miles)')
-plt.ylabel('Purchase Price ($)')
-plt.title('Vehicle Purchase Price vs. Odometer Reading')
-max_miles = df['odometer'].max()
-max_price = df['price'].max()
-plt.xlim(0, 500000)
-plt.ylim(0, 150000)
-plt.xticks(np.arange(0, 500001, 50000), rotation=45)
-plt.gca().xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{int(x):,}'))
-plt.yticks(np.arange(0, 100001, 5000))
-plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'${int(x):,}')) 
-st.pyplot(fig4)
+
+fig1 = px.scatter(
+    df, x='odometer', y='price',
+    title="Vehicle Purchase Price vs. Odometer Reading",
+    labels={"odometer": "Odometer Reading (miles)", "price": "Purchase Price ($)"},
+    color='type',  
+    opacity=0.7
+)
+fig1.update_layout(
+    xaxis=dict(
+        range=[0, 500000],  
+        tickmode='array',
+        tickvals=np.arange(0, 500000 + 1, 50000),  
+        title="Odometer Reading (miles)"
+    ),
+    yaxis=dict(
+        range=[0, 150000],  
+        tickmode='array',
+        tickvals=np.arange(0, 150000 + 1, 15000), 
+        title="Purchase Price ($)"
+    ),
+    template="plotly_white"
+)
+
+st.plotly_chart(fig1)
 
