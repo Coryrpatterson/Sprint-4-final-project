@@ -50,12 +50,16 @@ xmin, xmax = plt.xlim()
 x = np.linspace(xmin, xmax, 100)
 mean = df['model_year'].mean()
 std = df['model_year'].std()
-plt.plot(x, norm.pdf(x, mean, std), color='red', linestyle='dashed', label="Normal Dist.")
+"""plt.plot(x, norm.pdf(x, mean, std), color='red', linestyle='dashed', label="Normal Dist.")
 plt.title("Distribution of Vehicle Year and Its Effect on Sales", fontsize=14)
 plt.xlabel("Model Year")
 plt.ylabel("Total Vehicle Sales")
 plt.legend()
-st.pyplot(fig3)
+st.pyplot(fig3)""" 
+data = [1, 1, 1, 2, 2, 3, 4, 4, 5, 5, 5]
+# Create a histogram
+fig = px.histogram(data, x=data, title='Histogram Example')
+fig.show()
 
 st.write('Here we see a scatter plot of what happens with the prices of vehicles as we get higher odometer readings. There are outliers here however, the majority of the prices steadily have a negative slope to them')
 
@@ -74,3 +78,4 @@ plt.gca().xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{int(x):,}'
 plt.yticks(np.arange(0, 100001, 5000))
 plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'${int(x):,}')) 
 st.pyplot(fig4)
+
