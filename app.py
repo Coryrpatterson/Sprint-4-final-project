@@ -44,7 +44,18 @@ st.plotly_chart(fig2)
 
 st.write('As shown below it isnt always the latest and greatest car that sales first! Make sure that you know your market before buying or selling  a car from a customer')
 
-
+fig3=plt.figure(figsize=(10, 6))
+sns.histplot(df['model_year'].dropna(), kde=True, bins=30, stat="density", color='steelblue')
+xmin, xmax = plt.xlim()
+x = np.linspace(xmin, xmax, 100)
+mean = df['model_year'].mean()
+std = df['model_year'].std()
+plt.plot(x, norm.pdf(x, mean, std), color='red', linestyle='dashed', label="Normal Dist.")
+plt.title("Distribution of Vehicle Year and Its Effect on Sales", fontsize=14)
+plt.xlabel("Model Year")
+plt.ylabel("Total Vehicle Sales")
+plt.legend()
+st.pyplot(fig3)
 
 st.write('Here we see a scatter plot of what happens with the prices of vehicles as we get higher odometer readings. There are outliers here however, the majority of the prices steadily have a negative slope to them')
 
