@@ -58,6 +58,7 @@ plt.legend()
 st.pyplot(fig3)
 
 st.write('Here we see a scatter plot of what happens with the prices of vehicles as we get higher odometer readings. There are outliers here however, the majority of the prices steadily have a negative slope to them')
+
 fig4=plt.figure(figsize=(10, 6))
 sns.scatterplot(x=df['odometer'], y=df['price'], alpha=0.3, s=10, color="darkblue")
 sns.regplot(x=df['odometer'], y=df['price'], scatter=False, color='red', line_kws={"linewidth": 2})
@@ -73,8 +74,6 @@ plt.gca().xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{int(x):,}'
 plt.yticks(np.arange(0, 100001, 5000))
 plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'${int(x):,}')) 
 st.pyplot(fig4)
-
-
 
 
 
