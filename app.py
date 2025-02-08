@@ -60,7 +60,7 @@ fig = px.histogram(
 )
 
 fig.add_trace(
-    go.Scatter(
+    plotly.graph_objects.Scatter(
         x=x, 
         y=normal_dist, 
         mode='lines', 
