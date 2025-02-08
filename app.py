@@ -49,6 +49,7 @@ x = np.linspace(xmin, xmax, 100)
 mean = model_years.mean()
 std = model_years.std()
 normal_dist = norm.pdf(x, mean, std)  
+model_years = df_filtered['model_year']
 fig = px.histogram(
     model_years, 
     nbins=30,  
