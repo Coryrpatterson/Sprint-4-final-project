@@ -42,7 +42,7 @@ fig2.update_layout(
 )
 st.plotly_chart(fig2)
 
-st.write('As shown below it isnt always the latest and greatest car that sales first! Make sure that you know your market before buying a car from')
+st.write('As shown below it isnt always the latest and greatest car that sales first! Make sure that you know your market before buying or selling  a car from a customer')
 
 fig3=plt.figure(figsize=(10, 6))
 sns.histplot(df['model_year'].dropna(), kde=True, bins=30, stat="density", color='steelblue')
@@ -53,7 +53,7 @@ std = df['model_year'].std()
 plt.plot(x, norm.pdf(x, mean, std), color='red', linestyle='dashed', label="Normal Dist.")
 plt.title("Distribution of Vehicle Year and Its Effect on Sales", fontsize=14)
 plt.xlabel("Model Year")
-plt.ylabel("Density")
+plt.ylabel("Total Vehicle Sales")
 plt.legend()
 st.pyplot(fig3)
 
@@ -74,7 +74,4 @@ plt.gca().xaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'{int(x):,}'
 plt.yticks(np.arange(0, 100001, 5000))
 plt.gca().yaxis.set_major_formatter(plt.FuncFormatter(lambda x, _: f'${int(x):,}')) 
 st.pyplot(fig4)
-
-
-
 
